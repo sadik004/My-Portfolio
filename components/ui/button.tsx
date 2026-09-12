@@ -1,70 +1,54 @@
-"use client";
-
-import React from "react";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import Magnetic from "@/components/motion/magnetic";
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-export default function Hero() {
-  return (
-    <section className="max-w-6xl mx-auto px-6 pt-24 pb-20">
-      {/* 1. Status Indicator */}
-      <div className="flex items-center gap-2.5 mb-8">
-        <span className="relative flex h-2.5 w-2.5">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-        </span>
-        <span className="text-xs font-mono tracking-widest uppercase text-neutral-500">
-          Available for Select Projects • Dhaka, BD
-        </span>
-      </div>
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default:
+          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+        outline:
+          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-9 px-4 py-2",
+        sm: "h-8 rounded-md px-3 text-xs",
+        lg: "h-10 rounded-md px-8",
+        icon: "h-9 w-9",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
 
-      {/* 2. Bold Typography */}
-      <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter leading-[1.02] text-neutral-900 dark:text-neutral-50">
-        Design Engineer & <br />
-        <span className="text-neutral-400 dark:text-neutral-500 font-normal">
-          Fullstack Architect.
-        </span>
-      </h1>
-
-      {/* 3. Subtitle */}
-      <p className="mt-8 text-lg sm:text-xl text-neutral-600 dark:text-neutral-400 max-w-xl leading-relaxed">
-        Crafting high-performance web systems, bespoke interactive interfaces, and stealth automation tools.
-      </p>
-
-      {/* 4. Magnetic Buttons */}
-      <div className="mt-12 flex flex-wrap items-center gap-6">
-        
-        {/* Primary Button */}
-        <Magnetic>
-          <Link 
-            href="mailto:tonmoytarchera@gmail.com"
-            className={cn(
-              buttonVariants({ size: "lg" }),
-              "rounded-full px-8 py-6 text-sm font-semibold shadow-xl cursor-pointer bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 hover:bg-neutral-800 transition-colors"
-            )}
-          >
-            Get in Touch
-            <ArrowUpRight className="w-4 h-4 ml-1.5" />
-          </Link>
-        </Magnetic>
-
-        {/* Secondary Outline Button */}
-        <Magnetic>
-          <Link 
-            href="#projects"
-            className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "rounded-full px-8 py-6 text-sm font-semibold border-neutral-300 dark:border-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors cursor-pointer"
-            )}
-          >
-            View Works
-          </Link>
-        </Magnetic>
-
-      </div>
-    </section>
-  );
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
 }
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, ...props }, ref) => {
+    return (
+      <button
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+Button.displayName = "Button";
+
+export { Button, buttonVariants };

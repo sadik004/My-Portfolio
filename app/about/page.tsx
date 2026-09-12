@@ -5,7 +5,7 @@ import Link from "next/link";
 import Navbar from "@/components/sections/navbar";
 import Footer from "@/components/sections/footer";
 import Magnetic from "@/components/motion/magnetic";
-import { ArrowDownRight, GraduationCap } from "lucide-react";
+import { ArrowDownRight } from "lucide-react";
 
 export default function AboutPage() {
   const services = [
@@ -36,9 +36,9 @@ export default function AboutPage() {
       {/* Hero Statement */}
       <section className="max-w-6xl mx-auto px-6 pt-12 pb-20 border-b border-neutral-200 dark:border-neutral-800">
         <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-[1.05] max-w-4xl">
-          Helping products thrive with{" "}
+          Helping brands & products{" "}
           <span className="text-neutral-400 dark:text-neutral-500 font-normal">
-            intelligent engineering.
+            thrive in the digital world.
           </span>
         </h1>
       </section>

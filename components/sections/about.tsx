@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Bot, Brain, Code2, Database, GraduationCap, Layout } from "lucide-react";
+import { Bot, Brain, Database, GraduationCap, Layout } from "lucide-react";
 
 export default function About() {
   const stack = [
